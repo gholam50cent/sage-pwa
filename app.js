@@ -158,7 +158,11 @@ function dayToMillis(year, month, day) {
 // ========================= ذخیره‌سازی (localStorage) =========================
 const Storage = {
   _safe(key, fallback) {
-    try { return JSON.parse(localStorage.getItem(key)); }
+    try {
+      const val = localStorage.getItem(key);
+      if (val === null) return fallback;
+      return JSON.parse(val);
+    }
     catch(e) { return fallback; }
   },
   _save(key, data) {
